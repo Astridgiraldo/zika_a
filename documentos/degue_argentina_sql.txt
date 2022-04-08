@@ -1,0 +1,72 @@
+--1)Cual es el departamento con el mayor número de casos en el año 2021
+
+SELECT substr(departamento_nombre,2,5) as departamento_substr,sum ( cantidad_casos) as Cantidad_casos,
+departamento_nombre as departamento,
+FROM `proyecto-dengue-340103.dengue.dengue_2021` 
+group by departamento_nombre
+order by Cantidad_casos desc;
+
+--2) Que grupo de edad fue el más afectado por el zika y el dengue en el año 2021
+
+SELECT upper(grupo_edad_desc) as Edades, sum(cantidad_casos) as Cantidad_casos 
+FROM `proyecto-dengue-340103.dengue.dengue_2021`
+group by grupo_edad_desc
+order by Cantidad_casos desc;
+
+--3)Cual es la provincia  con el menor número de casos en el año 2020
+SELECT provincia_nombre as provincia , sum(cantidad_casos) as Cantidad_casos_2020 
+FROM `proyecto-dengue-340103.dengue.dengue_2020`
+group by provincia_nombre
+order by Cantidad_casos_2020 asc; 
+
+--4)Cuantas semanas epidemiologicas en total hubo en la provincia de buenos aires en el año 2020.
+SELECT provincia_nombre, sum( semanas_epidemiologicas ) as Total_semanas_2020
+FROM `proyecto-dengue-340103.dengue.dengue_2020`
+where provincia_nombre = 'Buenos Aires'
+group by provincia_nombre ;
+
+--5) Cuantos son los casos de dengue que se presentaron en la provincia de CABA en el año 2020
+SELECT provincia_nombre , sum( cantidad_casos ) as Cantidas_casos_2020, 
+FROM `proyecto-dengue-340103.dengue.dengue_2020`
+where provincia_nombre ='CABA'
+GROUP BY provincia_nombre ;
+
+--6)cuantas semanas epidemiologicas se tuvo por cada provincia en el año 2019
+SELECT provincia_nombre, sum( semanas_epidemiologicas ) as Total_semanas_2019
+FROM `proyecto-dengue-340103.dengue.dengue_2019`
+group by provincia_nombre ;
+
+--7)Numero departamentos en el cual presentaron casos de dengue en el año 2019
+
+SELECT distinct count(departamento_nombre) as departamentos_2019
+FROM `proyecto-dengue-340103.dengue.dengue_2019`;
+
+--8) cuales son las provincias que hubo casos de dengue que se obtuvieron mayor numero de casos y sus 
+--respectivas edades en el año 2020
+
+
+SELECT lower(provincia_nombre)as provincias, sum( cantidad_casos ) as Cantidas_casos_2020, grupo_edad_id
+FROM `proyecto-dengue-340103.dengue.dengue_2020`
+group by provincia_nombre, grupo_edad_id 
+order by Cantidas_casos_2020 desc;
+
+--9)cuantos fueron los casos de dengue por provincia en año 2019,2020,2021
+
+SELECT t1.provincia_nombre,sum(t1.cantidad_casos) as Cantidas_casos_2020,sum(t2.cantidad_casos) as cantidad_casos_2019,
+sum(t3.cantidad_casos) as cantidad_casos_2021,
+FROM `proyecto-dengue-340103.dengue.dengue_2020`t1 
+inner join `proyecto-dengue-340103.dengue.dengue_2019`t2 on t1.provincia_nombre = t2.provincia_nombre 
+inner join `proyecto-dengue-340103.dengue.dengue_2021`t3 on t1.provincia_nombre = t3.provincia_nombre 
+group by t1.provincia_nombre
+;
+
+--10) ¿cuantas fueron las semanas epidemiologicas que se vivieron en cada departamentos durante el año 2019,2020,2021
+
+
+SELECT   t1.departamento_nombre,sum(t1.semanas_epidemiologicas) as semanas_epidemi_2020,sum(t2.semanas_epidemiologicas) as semanas_epidem_2019,
+sum(t3.semanas_epidemiologicas) as semanas_epidemi_2021,
+FROM `proyecto-dengue-340103.dengue.dengue_2020`t1 
+inner join `proyecto-dengue-340103.dengue.dengue_2019`t2 on t1.departamento_nombre = t2.departamento_nombre
+inner join `proyecto-dengue-340103.dengue.dengue_2021`t3 on t1.departamento_nombre = t3.departamento_nombre
+group by t1.departamento_nombre;
+
