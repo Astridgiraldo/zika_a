@@ -4,7 +4,7 @@
 """
 
 
-@author: Daniela Lopez
+@author: Daniela Lopez, Daniela Giraldo
 """
 
 # Importar paquetes
@@ -16,9 +16,9 @@ import plotly.graph_objects as go
 import base64
 import gracicos as gr
 
-dengue_19 = pd.read_csv('C:/Users/Daniela/Desktop/dashboard/Bases/dengue_2019.csv')
-dengue_20 = pd.read_csv('C:/Users/Daniela/Desktop/dashboard/Bases/dengue_2020.csv')
-zika_21 = pd.read_csv('C:/Users/Daniela/Desktop/dashboard/Bases/zika_final.csv')
+dengue_19 = pd.read_csv('Bases/dengue_2019.csv')
+dengue_20 = pd.read_csv('Bases/dengue_2020.csv')
+zika_21 = pd.read_csv('Bases/zika_final.csv')
 
 
 # Utilizar la página completa en lugar de una columna central estrecha
